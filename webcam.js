@@ -1,5 +1,8 @@
 const webcam = document.querySelector('.webcam');
 const webcamSelect = document.querySelector('[name="choose-cam"]');
+const { ipcRenderer } = window;
+
+console.log(ipcRenderer);
 
 async function init() {
   // first populate Webcams
@@ -21,6 +24,7 @@ async function populateVideo(deviceId) {
   const stream = await navigator.mediaDevices.getUserMedia(options).catch();
   webcam.srcObject = stream;
   await webcam.play();
+  ipcRenderer.send('video:play', { width: webcam.videoWidth, height: webcam.videoHeight });
 }
 
 async function populateCams() {
