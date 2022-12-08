@@ -1,0 +1,15 @@
+{
+  "name": "pommade",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "author": "Wes Bos",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^21.3.3",
+    "menubar": "^9.2.3"
+  }
+}

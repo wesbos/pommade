@@ -1,0 +1,79 @@
+html {
+  margin: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  --arrowColor: #000;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  position: relative;
+  /* This padding is for the electron app */
+  --padding: 12px;
+  padding: var(--padding) 0;
+  overflow: hidden;
+}
+
+.app {
+  height: calc(100vh - var(--padding) * 2);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.app video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  grid-template-rows: 1 / -1;
+}
+
+.app select {
+  padding: 5px 20px;
+  text-align: center;
+  color: white;
+  --margin: 20px;
+  width: calc(100% - var(--margin) * 2);
+  margin: var(--margin);
+  background: rgba(0,0,0,0.2);
+  font-size: 20px;
+  border: 0;
+  z-index: 2;
+  position: absolute;
+  border-radius: 20px;
+}
+
+.app select:focus-visible {
+  outline: 0;
+  border: 1px solid rgba(0,0,0,0.3);
+}
+
+.myarrow:before {
+  content: '';
+  height: 0;
+  width: 0;
+  border-width: 0 8px 12px 8px;
+  border-style: solid;
+  border-color: transparent transparent var(--arrowColor) transparent;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.page {
+  background: var(--arrowColor);
+  width: 340px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.darwin.page {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+
