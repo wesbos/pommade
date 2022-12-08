@@ -24,7 +24,11 @@ async function populateVideo(deviceId) {
   const stream = await navigator.mediaDevices.getUserMedia(options).catch();
   webcam.srcObject = stream;
   await webcam.play();
-  ipcRenderer.send('video:play', { width: webcam.videoWidth, height: webcam.videoHeight });
+
+  ipcRenderer.send('video:play', {
+    width: webcam.videoWidth,
+    height: webcam.videoHeight
+  });
 }
 
 async function populateCams() {
