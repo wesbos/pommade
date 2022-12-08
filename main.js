@@ -5,6 +5,19 @@ const path = require('path');
 const width = 960;
 const height = 540;
 
+let image;
+
+ipcMain.handle('dark-mode:toggle', () => {
+  if (nativeTheme.shouldUseDarkColors) {
+    nativeTheme.themeSource = 'light'
+    image = './images/hair-icon.png'
+  } else {
+    nativeTheme.themeSource = 'dark'
+    image = './images/hair-white-icon.png'
+  }
+  return nativeTheme.shouldUseDarkColors
+})
+
 const mb = menubar({
   browserWindow: {
     transparent: true,
@@ -15,7 +28,7 @@ const mb = menubar({
       preload: path.join(__dirname, 'src/preload.js'),
     }
   },
-  icon: './images/hair-icon.png'
+  icon: image
 });
 
 mb.on('ready', () => {
