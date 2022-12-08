@@ -10,7 +10,7 @@ async function init() {
 async function populateVideo(deviceId) {
   const options = { video: true };
   if (deviceId) {
-    options.video = { devi
+    options.video = { deviceId: { exact: deviceId } };
   }
   // check local storage for deviceId
   const savedDeviceId = localStorage.getItem('camera');
