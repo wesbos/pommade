@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "npm run build && npm run electron",
+    "electron": "electron build/main.js",
+    "build": "./node_modules/.bin/esbuild src/main.ts src/preload.ts src/webcam.ts --bundle --outdir=build --external:electron --external:menubar --external:esbuild"
   },
   "author": "Wes Bos",
   "license": "ISC",
   "dependencies": {
     "electron": "^21.3.3",
+    "esbuild": "^0.16.2",
     "menubar": "^9.2.3"
   }
 }

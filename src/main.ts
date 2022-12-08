@@ -1,18 +1,18 @@
-const { ipcMain } = require('electron/main');
-const { menubar } = require('menubar');
-const path = require('path');
+import { ipcMain } from 'electron';
+import { menubar } from 'menubar';
 
 const width = 960;
 const height = 540;
 
 const mb = menubar({
+  index: `file://${__dirname}/../index.html`,
   browserWindow: {
     transparent: true,
     width,
     height,
     alwaysOnTop: true,
     webPreferences: {
-      preload: path.join(__dirname, 'src/preload.js'),
+      preload: __dirname + '/preload.js',
     }
   },
   icon: './images/hair-icon.png'
@@ -21,10 +21,13 @@ const mb = menubar({
 mb.on('ready', () => {
   console.log('Menubar app is ready.');
   mb.showWindow();
-  mb.window.openDevTools();
+  // @ts-expect-error
+  mb.window?.openDevTools();
 });
 
 ipcMain.addListener('video:play', (event, data) => {
   const multiplier = width / data.width;
-  mb.window.setSize(width, data.height * multiplier);
+  mb.window?.setSize(width, data.height * multiplier);
 });
+
+export {}

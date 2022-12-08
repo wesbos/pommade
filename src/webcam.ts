@@ -1,8 +1,6 @@
-const webcam = document.querySelector('.webcam');
-const webcamSelect = document.querySelector('[name="choose-cam"]');
+const webcam = document.querySelector<HTMLVideoElement>('.webcam');
+const webcamSelect = document.querySelector<HTMLSelectElement>('[name="choose-cam"]');
 const { ipcRenderer } = window;
-
-console.log(ipcRenderer);
 
 async function init() {
   // first populate Webcams
@@ -10,8 +8,9 @@ async function init() {
   await populateCams();
 }
 
-async function populateVideo(deviceId) {
-  const options = { video: true };
+async function populateVideo(deviceId?: string) {
+  if(!webcam) return;
+  const options: MediaStreamConstraints = { video: true };
   if (deviceId) {
     options.video = { deviceId: { exact: deviceId } };
   }
@@ -40,20 +39,19 @@ async function populateCams() {
     option.value = device.deviceId;
     option.text = device.label || device.deviceId;
     option.selected = savedDeviceId === device.deviceId;
-    webcamSelect.appendChild(option);
+    webcamSelect?.appendChild(option);
   });
 }
 
 
-function handleWebCamChange() {
-  const deviceId = this.value;
+function handleWebCamChange(e: Event) {
+  const target = e.target as HTMLSelectElement;
+  const deviceId = target.value;
   populateVideo(deviceId);
   // save it for nextx time
   localStorage.setItem('camera', deviceId);
 }
 
-webcamSelect.addEventListener('change', handleWebCamChange);
-
-
+webcamSelect?.addEventListener('change', handleWebCamChange);
 
 init();
