@@ -1,6 +1,6 @@
 ## Pommade
 
-A little app to check your hair. Build with Electron.
+A little app to check your hair. Built with Electron.
 
 ![](./images/handsome.jpg)
 
