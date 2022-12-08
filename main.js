@@ -9,8 +9,10 @@ let image;
 
 ipcMain.handle('dark-mode:toggle', () => {
   if (nativeTheme.shouldUseDarkColors) {
+    nativeTheme.themeSource = 'light'
     image = './images/hair-icon.png'
   } else {
+    nativeTheme.themeSource = 'dark'
     image = './images/hair-white-icon.png'
   }
   return nativeTheme.shouldUseDarkColors
