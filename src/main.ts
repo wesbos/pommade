@@ -22,9 +22,7 @@ const browserWindow = {
 
 
 function start(): BrowserWindow | Menubar {
-  const shouldRunDetached = false;
-
-  if(shouldRunDetached) {
+  if (process.env.DETACHED) {
     const win = new BrowserWindow({
       ...browserWindow,
       transparent: false
@@ -53,6 +51,8 @@ let window: BrowserWindow | undefined;
 app.on('ready', () => {
   windowOrMenubar = start();
   window = windowOrMenubar instanceof BrowserWindow ? windowOrMenubar : windowOrMenubar.window;
+  // @ts-expect-error
+  window?.openDevTools();
 });
 
 

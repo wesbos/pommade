@@ -7,10 +7,10 @@ A little app to check your hair. Built with Electron.
 ## Running
 
 1. `npm install`
-2. `npm start`
+2. `npm start` to run as a menu bar
+3. `npm start:detached` to run as a detached window. Kinda handy for debugging
 
 ## Features I'd like
-1. Make it work with vite - restarting the app sucks.
 1. Package it as an actual app
 
 ## Issues
