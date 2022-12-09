@@ -4,8 +4,10 @@ import { menubar } from 'menubar';
 const width = 960;
 const height = 540;
 
+
 const mb = menubar({
-  index: `file://${__dirname}/../index.html`,
+  // TODO: Output this file
+  index: process.env.VITE_DEV_SERVER_URL || `file://${__dirname}/../index.html`,
   browserWindow: {
     transparent: true,
     width,
