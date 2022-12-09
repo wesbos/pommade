@@ -34,6 +34,7 @@ async function populateCams() {
   const devices = await navigator.mediaDevices.enumerateDevices();
   const videoDevices = devices.filter(device => device.kind === 'videoinput');
   const savedDeviceId = localStorage.getItem('camera');
+
   videoDevices.forEach(device => {
     const option = document.createElement('option');
     option.value = device.deviceId;
@@ -48,7 +49,7 @@ function handleWebCamChange(e: Event) {
   const target = e.target as HTMLSelectElement;
   const deviceId = target.value;
   populateVideo(deviceId);
-  // save it for nextx time
+  // save it for next time
   localStorage.setItem('camera', deviceId);
 }
 

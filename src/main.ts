@@ -1,60 +1,72 @@
-import { BrowserWindow, ipcMain, nativeTheme } from 'electron';
-import { menubar } from 'menubar';
+import { BrowserWindow, ipcMain, nativeTheme, app } from 'electron';
+import { Menubar, menubar } from 'menubar';
 
 const width = 960;
 const height = 540;
 
-const createWindow = () => {
-  ipcMain.handle('dark-mode:toggle', () => {
-    if (nativeTheme.shouldUseDarkColors) {
-      nativeTheme.themeSource = 'light';
-    } else {
-      nativeTheme.themeSource = 'dark'
-    }
-    return nativeTheme.shouldUseDarkColors
-  })
-
-  ipcMain.handle('dark-mode:system', () => {
-    nativeTheme.themeSource = 'system'
-  })
-
-  const win = new BrowserWindow({
-    width,
-    height,
-    webPreferences: {
-      preload: `${__dirname}/preload.js`,
-    }
-  })
-
-  win.loadFile(`${__dirname}/../index.html`)
+const index = process.env.VITE_DEV_SERVER_URL || `file://${__dirname}/../index.html`;
+const icons = {
+  dark: `./images/hair-white-icon.png`,
+  light: `./images/hair-icon.png`,
 }
 
-const mb = menubar({
-  // TODO: Output this file
-  index: process.env.VITE_DEV_SERVER_URL || `file://${__dirname}/../index.html`,
-  browserWindow: {
-    transparent: true,
-    width,
-    height,
-    alwaysOnTop: true,
-    webPreferences: {
-      preload: `${__dirname}/preload.js`,
-    }
-  },
-  icon: nativeTheme.themeSource === 'dark' ? './images/hair-icon.png' : './images/hair-white-icon.png',
+const browserWindow = {
+  transparent: true,
+  width,
+  height,
+  alwaysOnTop: false,
+  webPreferences: {
+    preload: `${__dirname}/preload.js`,
+  }
+}
+
+
+function start(): BrowserWindow | Menubar {
+  const shouldRunDetached = false;
+
+  if(shouldRunDetached) {
+    const win = new BrowserWindow({
+      ...browserWindow,
+      transparent: false
+    })
+    win.loadURL(index);
+    return win;
+  }
+  else {
+    const mb = menubar({
+      index,
+      browserWindow,
+      icon: nativeTheme.shouldUseDarkColors ? icons.dark : icons.light,
+    });
+    mb.on('ready', () => {
+      mb.showWindow();
+      // @ts-expect-error
+      mb.window?.openDevTools();
+    });
+    return mb;
+  }
+}
+
+let windowOrMenubar: BrowserWindow | Menubar | undefined;
+let window: BrowserWindow | undefined;
+
+app.on('ready', () => {
+  windowOrMenubar = start();
+  window = windowOrMenubar instanceof BrowserWindow ? windowOrMenubar : windowOrMenubar.window;
 });
 
-mb.on('ready', () => {
-  console.log('Menubar app is ready.');
-  createWindow()
-  mb.showWindow();
-  // @ts-expect-error
-  mb.window?.openDevTools();
-});
 
+// Event Listeners
 ipcMain.addListener('video:play', (event, data) => {
   const multiplier = width / data.width;
-  mb.window?.setSize(width, data.height * multiplier);
+  window?.setSize(width, data.height * multiplier);
+});
+
+// dark mode
+nativeTheme.addListener('updated', () => {
+  if (windowOrMenubar instanceof Menubar) {
+    windowOrMenubar.tray.setImage(nativeTheme.shouldUseDarkColors ? icons.dark : icons.light);
+  }
 });
 
 export {}
