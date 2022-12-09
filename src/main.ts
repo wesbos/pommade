@@ -38,8 +38,7 @@ function start(): BrowserWindow | Menubar {
     });
     mb.on('ready', () => {
       mb.showWindow();
-      // @ts-expect-error
-      mb.window?.openDevTools();
+      mb.window?.webContents.openDevTools();
     });
     return mb;
   }
@@ -51,8 +50,7 @@ let window: BrowserWindow | undefined;
 app.on('ready', () => {
   windowOrMenubar = start();
   window = windowOrMenubar instanceof BrowserWindow ? windowOrMenubar : windowOrMenubar.window;
-  // @ts-expect-error
-  window?.openDevTools();
+  window?.webContents.openDevTools();
 });
 
 
