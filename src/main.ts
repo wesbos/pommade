@@ -4,16 +4,12 @@ import { menubar } from 'menubar';
 const width = 960;
 const height = 540;
 
-let image = '';
-
 const createWindow = () => {
   ipcMain.handle('dark-mode:toggle', () => {
     if (nativeTheme.shouldUseDarkColors) {
       nativeTheme.themeSource = 'light';
-      image = './images/hair-white-icon.png';
     } else {
       nativeTheme.themeSource = 'dark'
-      image = './images/hair-icon.png';
     }
     return nativeTheme.shouldUseDarkColors
   })
@@ -34,7 +30,7 @@ const mb = menubar({
       preload: __dirname + '/preload.js',
     }
   },
-  icon: image
+  icon: nativeTheme.themeSource === 'dark' ? './images/hair-icon.png' : './images/hair-white-icon.png',
 });
 
 mb.on('ready', () => {
