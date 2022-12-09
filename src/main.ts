@@ -1,11 +1,11 @@
-const { ipcMain } = require('electron/main');
-const { menubar } = require('menubar');
-const path = require('path');
+import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron';
+import { menubar }  from 'menubar';
+import path from 'path';
 
 const width = 960;
 const height = 540;
 
-let image;
+let image: string;
 
 ipcMain.handle('dark-mode:toggle', () => {
   if (nativeTheme.shouldUseDarkColors) {
@@ -34,10 +34,10 @@ const mb = menubar({
 mb.on('ready', () => {
   console.log('Menubar app is ready.');
   mb.showWindow();
-  mb.window.openDevTools();
+  mb.window?.openDevTools();
 });
 
 ipcMain.addListener('video:play', (event, data) => {
   const multiplier = width / data.width;
-  mb.window.setSize(width, data.height * multiplier);
+  mb.window?.setSize(width, data.height * multiplier);
 });
