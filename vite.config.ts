@@ -33,6 +33,14 @@ export default defineConfig({
         vite: {
           plugins: [loadEnvPlugin()],
         },
+        onstart(options) {
+          // start the app manually
+          options.startup();
+          // listen for ctrl + c and kill the app
+          process.on('exit', () => {
+            process.electronApp.kill();
+          });
+        },
       },
       {
         entry: 'src/preload.ts',

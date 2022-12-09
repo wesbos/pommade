@@ -6,10 +6,17 @@
     "strict": true,
     "moduleResolution": "node",
     "target": "ES2022",
+    "types": [
+      "vite/client",
+      "node"
+    ],
     "lib": [
       "ESNext",
       "DOM",
       "DOM.Iterable"
+    ],
+    "typeRoots": [
+      "node_modules/@types",
     ],
     "esModuleInterop": true,
     "skipLibCheck": true
