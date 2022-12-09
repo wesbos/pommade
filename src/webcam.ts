@@ -10,7 +10,7 @@ async function init() {
 
 async function populateVideo(deviceId?: string) {
   if(!webcam) return;
-  const options: MediaStreamConstraints = { video: true };
+    const options: MediaStreamConstraints = { video: true };
   if (deviceId) {
     options.video = { deviceId: { exact: deviceId } };
   }
