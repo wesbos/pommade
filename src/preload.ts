@@ -10,3 +10,6 @@ declare global {
 contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer)
 
 export {}
+
+
+

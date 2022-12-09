@@ -2,3 +2,4 @@
 haters/
 node_modules/
 build/
+dist-electron/

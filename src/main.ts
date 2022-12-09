@@ -30,7 +30,8 @@ const createWindow = () => {
 }
 
 const mb = menubar({
-  index: `file://${__dirname}/../index.html`, //the is the dev panel.  Comment with the line below to see the app without the dev panel
+  // TODO: Output this file
+  index: process.env.VITE_DEV_SERVER_URL || `file://${__dirname}/../index.html`,
   browserWindow: {
     transparent: true,
     width,

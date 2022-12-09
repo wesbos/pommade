@@ -2,17 +2,17 @@
   "name": "pommade",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist-electron/main.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "npm run build && npm run electron",
-    "electron": "electron build/main.js",
-    "build": "./node_modules/.bin/esbuild src/main.ts src/preload.ts src/webcam.ts --bundle --outdir=build --external:electron --external:menubar --external:esbuild"
+    "start": "vite"
   },
   "author": "Wes Bos",
   "license": "ISC",
   "dependencies": {
-    "electron": "^21.3.3",
-    "esbuild": "^0.16.2",
-    "menubar": "^9.2.3"
+    "electron": "^22.0.0",
+    "menubar": "^9.2.3",
+    "vite": "^4.0.0",
+    "vite-plugin-electron": "^0.10.4"
   }
 }
