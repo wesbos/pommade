@@ -1,4 +1,4 @@
-import { ipcMain, nativeTheme } from 'electron';
+import { BrowserWindow, ipcMain, nativeTheme } from 'electron';
 import { menubar } from 'menubar';
 
 const width = 960;
@@ -17,17 +17,27 @@ const createWindow = () => {
   ipcMain.handle('dark-mode:system', () => {
     nativeTheme.themeSource = 'system'
   })
+
+  const win = new BrowserWindow({
+    width,
+    height,
+    webPreferences: {
+      preload: `${__dirname}/preload.js`,
+    }
+  })
+
+  win.loadFile(`${__dirname}/../index.html`)
 }
 
 const mb = menubar({
-  index: `file://${__dirname}/../index.html`,
+  index: `file://${__dirname}/../index.html`, //the is the dev panel.  Comment with the line below to see the app without the dev panel
   browserWindow: {
     transparent: true,
     width,
     height,
     alwaysOnTop: true,
     webPreferences: {
-      preload: __dirname + '/preload.js',
+      preload: `${__dirname}/preload.js`,
     }
   },
   icon: nativeTheme.themeSource === 'dark' ? './images/hair-icon.png' : './images/hair-white-icon.png',
