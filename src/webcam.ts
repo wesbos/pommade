@@ -1,5 +1,7 @@
 const webcam = document.querySelector<HTMLVideoElement>('.webcam');
 const webcamSelect = document.querySelector<HTMLSelectElement>('[name="choose-cam"]');
+const webcamCanvas = document.querySelector<HTMLCanvasElement>('.webcam-canvas');
+const ctx = webcamCanvas?.getContext('2d');
 const { ipcRenderer } = window;
 
 async function init() {
@@ -8,7 +10,7 @@ async function init() {
   await populateCams();
 }
 
-async function populateVideo(deviceId?: string) {
+const populateVideo = async function (deviceId?: string) {
   if(!webcam) return;
     const options: MediaStreamConstraints = { video: true };
   if (deviceId) {
@@ -43,7 +45,6 @@ async function populateCams() {
     webcamSelect?.appendChild(option);
   });
 }
-
 
 function handleWebCamChange(e: Event) {
   const target = e.target as HTMLSelectElement;
