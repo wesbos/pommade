@@ -57,14 +57,26 @@
     "updater": {
       "active": false
     },
+    "macOSPrivateApi": true,
     "windows": [
       {
+        "title": "pommade",
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "pommade",
-        "width": 800
+        "width": 800,
+        "transparent": true,
+        "hiddenTitle": true,
+        "visible": false,
+        "decorations": false,
+        "focus": false,
+        "alwaysOnTop": true
       }
-    ]
+    ],
+    "systemTray": {
+      "iconPath": "../images/hair-icon.png",
+      "iconAsTemplate": true,
+      "menuOnLeftClick": true
+    }
   }
 }

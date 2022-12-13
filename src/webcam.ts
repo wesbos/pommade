@@ -35,7 +35,6 @@ const populateVideo = async function (deviceId?: string) {
   webcam.srcObject = stream;
   await webcam.play();
 
-  console.log(appWindow)
   // Size it in Tauri
   if(appWindow) {
     const width = 960;
