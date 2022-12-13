@@ -25,6 +25,10 @@ function loadEnvPlugin(): Plugin {
 }
 
 export default defineConfig({
+  server: {
+    port: 1999,
+    strictPort: true,
+  },
   plugins: [
     electron([
       {

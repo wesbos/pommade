@@ -10,9 +10,11 @@ A little app to check your hair. Built with Electron.
 2. `npm start` to run as a menu bar
 3. `npm start:detached` to run as a detached window. Kinda handy for debugging
 
-## Features I'd like
-1. Package it as an actual app
 
-## Issues
-When you start it, it absolutely pukes stuff into the node console. Not sure why or what that is.
+## Tauri Implementation
 
+I've also implemented it in Tauri, which is an electron alternative that doesn't ship Chromium. Pretty neat.
+
+It uses the same codebase for now. I should probably pick one.
+
+Run with `npm run tauri dev`

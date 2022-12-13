@@ -6,11 +6,15 @@
   "type": "commonjs",
   "scripts": {
     "start": "vite",
+    "tauri": "tauri",
+    "start:tauri": "vite --config ./vite-tauri.config.ts",
     "start:detached": "cross-env DETACHED=yep vite"
   },
   "author": "Wes Bos",
   "license": "ISC",
   "dependencies": {
+    "@tauri-apps/api": "^1.2.0",
+    "@tauri-apps/cli": "^1.2.2",
     "electron": "^22.0.0",
     "menubar": "^9.2.3",
     "vite": "^4.0.0",
